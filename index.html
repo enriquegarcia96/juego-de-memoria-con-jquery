@@ -11,6 +11,8 @@
         var numCartas = 10;
         var carta1 = " ";
         var carta2 = " ";
+        var score = 0;
+        var puntos = 0;
 
         $(document).ready(inicio);
 
@@ -22,6 +24,10 @@
         function voltear() {
             //Despliega numero
             $(this).children().css("display", "block");
+
+            //Aumentamos el score
+            score++
+            $("#puntos").html("Score: "+score);
 
             //Primera carta
             if (carta1 == " ") {
@@ -39,7 +45,11 @@
                 if (carta1.attr("data-num") == carta2.attr("data-num")) {
                     carta1.removeClass("carta").addClass("desaparece");
                     carta2.removeClass("carta").addClass("desaparece");
-                    carta1 = carta2 = " ";
+                    puntos++;
+
+                    if (puntos == numCartas) {
+                        alert("Felicidades, terminaste el juego");
+                    }
                 }else{
                     carta1.children().css("display", "none");
                     carta2.children().css("display", "none");
@@ -71,6 +81,40 @@
                 $(this).attr("data-num", numeros_array[n]);
                 numeros_array.splice(n,1)
             });
+            tiempo(1);
+        }
+
+        //para el contador
+        function tiempo(limite){
+            var min = limite - 1;
+
+            var seg = 59;
+
+            t = setInterval(function(){
+                $("#tiempo").html("");
+
+                if (seg < 10) {
+                    $("#tiempo").append("00:0"+min+":0"+seg);
+                }else{
+                    $("#tiempo").append("00:0"+min+":"+seg);
+                }
+
+                seg--;
+
+                if (seg < 0) {
+                    seg = 59;
+                    min--;
+                }
+
+                if (min <0) {
+                    clearInterval(t);
+                    alert("Tiempo Terminado");
+
+                    //se muere el juego para que no se den vueltas las cartas
+                    $(".carta").off();
+                }
+                
+            }, 1000);
         }
     </script>
 
@@ -128,6 +172,9 @@
 
 </head>
 <body>
+
+    <h2>Juego de memoria</h2>
+    <h2>Enrique García</h2>
     
     <div id="tablero">
         <div class="carta" data-num=""></div>
