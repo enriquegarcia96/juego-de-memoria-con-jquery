@@ -2,5 +2,5 @@
 
 ### Deployment
 
-This section has moved here: (https://enriquegarcia96.github.io/juego-de-memoria-con-jquery/)
+Link del proyecto: (https://enriquegarcia96.github.io/juego-de-memoria-con-jquery/)
 
